@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-
+    scale= 1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(Image/Quiz1\ -\ Copy.jpg);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    input[type=text],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      resize: vertical;
+    }
+
+    input[type=submit] {
+      background-color: #04AA6D;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 10px;
+    }
+
+    .column {
+      float: left;
+      width: 50%;
+      margin-top: 6px;
+      padding: 20px;
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .footer-col-4 .ul a {
+      margin: 20px 10px;
+    }
+
+    @media screen and (max-width: 600px) {
+
+      .column,
+      input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="col-2">
+    <img src="Image/Quiz.logo1.png" width="100%">
+  </div>
+  <div class="col-2">
+    <img src="Image/Afzal1.jpg" width="100%">
+  </div>
+  <marquee direction="right">
+    <h3 style="text-align: center; color: red;"> phone no : 7260023491 email : quizguru786@gmail.com</h3>
+  </marquee>
+  <div class="account-page">
+    <div class="'container">
+      <diV class="row">
+        <div class="col-2" <div class="form-container">
+          <div class="container">
+            <div style="text-align:center">
+              <h2>Contact Us</h2>
+
+            </div>
+            <div class="row">
+              <div class="column">
+              </div>
+              <div class="column">
+                <form action="contactus.php" method="post">
+
+                  <label for="fname">First Name </label>
+                  <input type="text" id="fname" name="firstname" placeholder="Your name.." required>
+                  <label for="lname">Last name </label>
+                  <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
+
+                  <label for="Email">Email id</label>
+                  <input type="text" id="email" name="email" placeholder="Your Email" required>
+
+                  <label for="Phone Number">phone no</label>
+                  <input type="text" id="phoneno" name="phoneno" placeholder="Your phone num" required>
+
+                  <label for="country">Country</label>
+                  <select id="country" name="country">
+                    <option value="australia">INDIA</option>
+                    <option value="australia">Australia</option>
+                    <option value="canada">Canada</option>
+                    <option value="usa">USA</option>
+                    <option value="usa">Pakistan</option>
+                    <option value="usa">WestIndies</option>
+                    <option value="usa">Afganistan</option>
+                    <option value="usa">newZeland</option>
+                    <option value="usa">Nepal</option>
+                    <option value="usa">Turki</option>
+                  </select>
+                  <label for="subject">Subject</label>
+                  <textarea id="subject" name="subject" placeholder="Write something.." style="height:250px"
+                    required></textarea>
+                 <a href="Home.html"><input type="submit" value="Submit"></a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </diV>
+  </div>
+
+  </div>
+  <hr>
+  <div class="footer-col-4">
+    <h3 style="color: black;">follow us</h3>
+    <ul>
+      <a href="https://www.instagram.com/guru_afzal0786/"><i class="fa fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/md-afzal-966ab724b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        style="margin: 10px;"><i class="fa fa-linkedin"></i></a>
+      <a href="https://youtube.com/@afzalguru3905?si=2CvvvWJGrW1tcCwm"><i class="fa fa-youtube"></i></a>
+      <a href="https://tinyurl.com/8sfvx9h8" style="margin: 10px;"><i class="fa fa-whatsapp"></i></a>
+      <a href="https://twitter.com/AfzalKhan149343"><i class="fa fa-twitter"></i></a>
+
+      <ul>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <hr>
+  <script>
+    var MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    function menutoggle() {
+      if (MenuItems.style.maxHeight == "0px") {
+        MenuItems.style.maxHeight = "200px";
+      } else {
+        MenuItems.style.maxHeight = "0px";
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #333333;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1 {
+      color: #FFF;
+      margin: 20px 0;
+    }
+
+    .progress {
+      height: 5px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+    }
+
+    .progress--bar {
+      background-color: #00ff009c;
+      height: 100%;
+      transition: all ease .5s;
+    }
+
+    .questionArea,
+    .scoreArea {
+      display: none;
+    }
+
+    .questionArea {
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .question {
+      color: #FFF;
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin-bottom: 5px;
+      color: #AAA;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .option span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      margin-left: 5px;
+      margin-right: 10px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #555;
+    }
+
+    .option:hover {
+      background-color: rgba(120, 0, 0, 0.2);
+    }
+
+    .scoreArea {
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      border-radius: 20px;
+      margin: 10px;
+      text-align: center;
+    }
+
+    .prizeImage {
+      width: auto;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+
+    .scoreText1 {
+      color: #000;
+      font-size: 23px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .scorePct {
+      color: #0d630d;
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .scoreText2 {
+      font-size: 16px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .scoreArea button {
+      border: 0;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #CCC;
+      padding: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .scoreArea button:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    footer {
+      margin-top: 20px;
+      color: #FFF;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress">
+    <div class="progress--bar"></div>
+  </div>
+
+  <div class="questionArea">
+    <div class="question">...</div>
+    <div class="options"></div>
+  </div>
+
+  <div class="scoreArea">
+    <img src="Image/prize1.png" class="prizeImage" />
+    <div class="scoreText1">Parabéns!</div>
+    <div class="scorePct">Acertou 99%</div>
+    <div class="scoreText2">Você respondeu 9 questões e acertou 8.</div>
+    <button>Fazer novamente</button>
+  </div>
+
+  <script>
+    let questions = [
+      {
+        question: "  Who developed Python Programming Language?",
+        options: [
+          " Wick van Rossum",
+          "James Gosling",
+          " Guido van Rossum",
+          " Bjarne Stroustrup"],
+        answer: 2,
+      },
+
+      {
+        question: " Which type of Programming does Python support?",
+        options: ["object-oriented programming", "  structured programming", "functional programming", "all of the mentioned"],
+        answer: 3,
+      },
+
+
+      {
+        question:
+          "Is Python case sensitive when dealing with identifiers?",
+        options: ["  no", "yes", "machine dependent", " none of the mentioned"],
+        answer: 1,
+      },
+      {
+        question:
+          "Which of the following is the correct extension of the Python file?",
+        options: ['  .python"', ' .pl"', ' .py"',' .p"'],
+        answer: 2,
+      },
+      {
+        question:
+          "  All keywords in Python are in _________",
+        options: ['  Capitalized"', '  lower case"', 'UPPER CASE"', '  None of the mentioned"'],
+        answer:3,
+      },
+      {
+        question:
+          "  Which exception is thrown when java is out of memory?",
+        options: [' MemoryError"', ' OutOfMemoryError"', 'MemoryOutOfBoundsException"', ' MemoryFullException"'],
+        answer: 0,
+      },
+      {
+        question:
+          " Which of these are selection statements in Java?",
+        options: [' break"', ' continue"', ' for()"', '   if()"'],
+        answer: 1,
+      },
+      {
+        question:
+          " Which keyword is used for function in Python language?",
+        options: [' //"', '  #"', ' !"', ' /*"'],
+        answer: 1,
+      },
+      {
+        question:
+          "What does pip stand for python?",
+        options: ['Pip Installs Python"', '  Pip Installs Packages"', '  Preferred Installer Program"', '  All of the mentioned"'],
+        answer: 2,
+      },
+      {
+        question:
+          "   Which of the following functions is a built-in function in python?",
+        options: ['  factorial()"', ' print()"', ' seed()"', ' sqrt()"'],
+        answer: 0,
+      },
+      {
+        question:
+          "Which of the following is not a core data type in Python programming?",
+        options: [' Tuples"', '  Lists"', 'Class"', ' Dictionary"'],
+        answer: 2,
+      },
+      {
+        question:
+          "Which of this keyword can be used in a subclass to call the constructor of superclass?",
+        options: [' super"', ' this"', ' extent"', 'extends"'],
+        answer: 0,
+      },
+      {
+        question:
+          "Which one of the following is not a keyword in Python language?",
+        options: [' pass"', 'eval"', ' assert"', 'nonlocal"'],
+        answer: 1,
+      },
+      {
+        question:
+          "  What is output of print(math.pow(3, 2))?",
+        options: ['   9.0"', ' None"', '9"', 'None of the mentioned"'],
+        answer: 2,
+      },
+      {
+        question:
+          "   Which keyword is used for function?",
+        options: ['  Fun"', '  Define"',' def"','  Function"'],
+        answer: 2,
+      },
+
+
+    ];
+  </script>
+  <script>
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    showQuestion();
+
+    document
+      .querySelector(".scoreArea button")
+      .addEventListener("click", resetEvent);
+
+    function showQuestion() {
+      if (questions[currentQuestion]) {
+        let q = questions[currentQuestion];
+
+        let pct = Math.floor((currentQuestion / questions.length) * 100);
+        document.querySelector(".progress--bar").style.width = `${pct}%`;
+
+        document.querySelector(".scoreArea").style.display = "none";
+        document.querySelector(".questionArea").style.display = "block";
+
+        document.querySelector(".question").innerHTML = q.question;
+        let optionsHtml = "";
+        for (let i in q.options) {
+          optionsHtml += `<div data-op="${i}" class="option"><span>${Number(i) + 1
+            }</span> ${q.options[i]}</div>`;
+        }
+
+        document.querySelector(".options").innerHTML = optionsHtml;
+
+        document.querySelectorAll(".options .option").forEach((item) => {
+          item.addEventListener("click", optionClickEvent);
+        });
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function optionClickEvent(e) {
+      let clickedOption = Number(e.target.getAttribute("data-op"));
+
+      if (questions[currentQuestion].answer === clickedOption) {
+        correctAnswers++;
+      }
+
+      currentQuestion++;
+      showQuestion();
+    }
+
+    function finishQuiz() {
+      let points = Math.floor((correctAnswers / questions.length) * 100);
+
+      if (points <= 50) {
+        document.querySelector(".scoreText1").innerHTML = "QUIZ GURU";
+        document.querySelector(".scorePct").style.color = "rgb(165, 3, 3)";
+      } else if (points <= 70) {
+        document.querySelector(".scoreText1").innerHTML = "Muito bom!";
+        document.querySelector(".scorePct").style.color = "rgb(221, 221, 13)";
+      } else if (points > 70) {
+        document.querySelector(".scoreText1").innerHTML = "Parabéns!";
+        document.querySelector(".scorePct").style.color = "0D630D";
+      }
+
+      document.querySelector(".scorePct").innerHTML = `Acertou ${points}%`;
+      document.querySelector(
+        ".scoreText2"
+      ).innerHTML = `Você respondeu ${questions.length} questões e acertou ${correctAnswers}.`;
+
+      document.querySelector(".scoreArea").style.display = "block";
+      document.querySelector(".questionArea").style.display = "none";
+      document.querySelector(".progress--bar").style.width = "100%";
+    }
+
+    function resetEvent() {
+      correctAnswers = 0;
+      currentQuestion = 0;
+      showQuestion();
+    }
+  </script>
+</body>
+
+</html>

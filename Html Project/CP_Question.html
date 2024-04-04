@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #333333;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1 {
+      color: #FFF;
+      margin: 20px 0;
+    }
+
+    .progress {
+      height: 5px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+    }
+
+    .progress--bar {
+      background-color: #00ff009c;
+      height: 100%;
+      transition: all ease .5s;
+    }
+
+    .questionArea,
+    .scoreArea {
+      display: none;
+    }
+
+    .questionArea {
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .question {
+      color: #FFF;
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin-bottom: 5px;
+      color: #AAA;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .option span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      margin-left: 5px;
+      margin-right: 10px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #555;
+    }
+
+    .option:hover {
+      background-color: rgba(120, 0, 0, 0.2);
+    }
+
+    .scoreArea {
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      border-radius: 20px;
+      margin: 10px;
+      text-align: center;
+    }
+
+    .prizeImage {
+      width: auto;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+
+    .scoreText1 {
+      color: #000;
+      font-size: 23px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .scorePct {
+      color: #0d630d;
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .scoreText2 {
+      font-size: 16px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .scoreArea button {
+      border: 0;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #CCC;
+      padding: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .scoreArea button:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    footer {
+      margin-top: 20px;
+      color: #FFF;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress">
+    <div class="progress--bar"></div>
+  </div>
+
+  <div class="questionArea">
+    <div class="question">...</div>
+    <div class="options"></div>
+  </div>
+
+  <div class="scoreArea">
+    <img src="Image/prize1.png" class="prizeImage" />
+    <div class="scoreText1">Parabéns!</div>
+    <div class="scorePct">Acertou 99%</div>
+    <div class="scoreText2">Você respondeu 9 questões e acertou 8.</div>
+    <button>Fazer novamente</button>
+  </div>
+
+  <script>
+    let questions = [
+      {
+        question: " Who is the father of C language?",
+        options: [
+          "Steve Jobs",
+          "James Gosling",
+          " Dennis Ritchie",
+          "Rasmus Lerdorf"],
+        answer: 2,
+      },
+
+      {
+        question: "Which of the following is not a valid C variable name?",
+        options: ["int number;", "int number;", "int variable_count;", "int $main;"],
+        answer: 3,
+      },
+
+
+      {
+        question:
+          "All keywords in C are in _____________",
+        options: [" LowerCase letters",  "UpperCase letters", "UpperCase letters", " None of the mentioned"],
+        answer: 0,
+      },
+      {
+        question:
+          "Which is valid C expression?",
+        options: ['int my_num = 100,000;"', 'int my_num = 100,000;"', 'int my_num = 100,000;"','int my_num = 100,000;"'],
+        answer: 1,
+      },
+      {
+        question:
+          " Which of the following cannot be a variable name in C?",
+        options: ['volatile"', ' true"', 'friend"', ' export"'],
+        answer: 0,
+      },
+      {
+        question:
+          " What is an example of iteration in C?",
+        options: ['for"', 'while"', 'do-while"',' all of the mentioned"'],
+        answer: 3,
+      },
+      {
+        question:
+          " Functions in C Language are always ____",
+        options: [' Internal"', ' External"', ' Both Internal and External"', '  External and Internal are not valid terms for functions"'],
+        answer: 1,
+      },
+      {
+        question:
+          " C preprocessors can have compiler specific features.",
+        options: ['True"', ' False"', 'Depends on the standard"', '  Depends on the platform"'],
+        answer: 0,
+      },
+      {
+        question:
+          " How many number of pointer (*) does C have against a pointer variable declaration?",
+        options: ['7"', '127"', '  255"', ' No limit"'],
+        answer: 1,
+      },
+      {
+        question:
+          " What is the sizeof(char) in a 32-bit C compiler?",
+        options: ['1 bit"', ' 2 bits"', '1 Byte"', '1 Byte"'],
+        answer: 2,
+      },
+      {
+        question:
+          " Which of the following is not a valid variable name declaration?",
+        options: [' int __a3;"', ' int __3a;"', ' int __A3;"','None of the mentioned"' ],
+        answer: 3,
+      },
+      {
+        question:
+          " Which of the following is not a valid C variable name?",
+        options: [' int number;"', ' float rate;e"', ' float rate;"', 'int $main;"'],
+        answer: 3,
+      },
+      {
+        question:
+          "The format identifier ‘%i’ is also used for _____ data type.",
+        options: ['char"', 'double"', ' char"', 'float”'],
+        answer: 1,
+      },
+      {
+        question:
+          " What is the size of an int data type?",
+        options: [' 4 Bytes"', ' 8 Bytes"', '8 Bytes"', '8 Bytes"'],
+        answer: 2,
+      },
+      {
+        question:
+          "  Which is correct with respect to the size of the data types?",
+        options: ['  char > int > float"', ' int > char > float"', ' char < int < double"', ' double > char > int"'],
+        answer: 2,
+      },
+      {
+        question:
+          " Which of the data types has the size that is variable?",
+        options: [' int"', 'struct"', ' float"', 'double'],
+        answer: 1,
+      },
+      {
+        question:
+          " enum types are processed by _________",
+        options: [' Compiler"', 'Preprocessor"', ' Linker"', '  Assembler"'],
+        answer: 0,
+      },
+      {
+        question:
+          "Which keyword is used to prevent any changes in the variable within a C program?",
+        options: [' immutable"', 'mutable"', ' const"', 'volatile"' ],
+        answer: 2,
+      },
+      {
+        question:
+          " Which of the following is not a pointer declaration?",
+        options: ['char a[10];"', 'char a[10];"', ' char *str;"', ' char *str;"'],
+        answer: 3,
+      },
+      {
+        question:
+          " A variable declared in a function can be used in main().",
+        options: [' True"', '  False"', ' True if it is declared static"', ' None of the mentioned"'],
+        answer: 2,
+      },
+      {
+        question:
+          " The name of the variable used in one function cannot be used in another function.",
+        options: ['True"', '  False"'],
+        answer: 0,
+      },
+      {
+        question:
+          " What is the precedence of arithmetic operators (from highest to lowest)?",
+        options: ['%, *, /, +, –"', ' %, +, /, *, –"', '+, -, %, *, /"', ' %, +, -, *, /"'],
+        answer: 0,
+      },
+      {
+        question:
+          "  Which of the following is not an arithmetic operation?",
+        options: [' a * = 10;"', ' a / = 10;"', ' a ! = 10;"', ' a % = 10;"'],
+        answer: 2,
+      },
+      {
+        question:
+          "Which of the following data type will throw an error on modulus operation(%)?",
+        options: ['char"', 'short"', 'int"', 'float"'],
+        answer: 3,
+      },
+      {
+        question:
+          "Are logical operator sequence points?",
+        options: ['True"', 'False"', 'Depends on the compiler"', ' Depends on the standard"'],
+        answer: 0,
+      },
+      {
+        question:
+          "Do logical operators in the C language are evaluated with the short circuit?",
+        options: [' True"', ' False"', '  Depends on the compiler"', '  Depends on the standard"'],
+        answer: 1,
+      },
+
+      {
+        question:
+          "What is the result of logical or relational expression in C?",
+        options: ['True or False"', '  0 or 1"', '0 if an expression is false and any positive number if an expression is true"',  '  None of the mentioned"'],
+        answer: 1,
+      },
+
+      {
+        question: " Relational operators cannot be used on ____________?",
+        options: [" structure", "  long","  stringsr"," float",],
+        answer: 1,
+      },
+
+      {
+        question: " When double is converted to float, then the value is?",
+        options: [
+          "Truncated",
+          "Rounded",
+          "Depends on the compiler",
+          " Depends on the standard",],
+        answer: 2,
+      },
+
+      {
+        question: " function tolower(c) defined in library <ctype.h> works for ___________",
+        options: [" Ascii character set", "Unicode character set", "Unicode character set", " Any character set"],
+        answer: 2,
+      },
+    ];
+  </script>
+  <script>
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+    showQuestion();
+
+    document
+      .querySelector(".scoreArea button")
+      .addEventListener("click", resetEvent);
+
+    function showQuestion() {
+      if (questions[currentQuestion]) {
+        let q = questions[currentQuestion];
+
+        let pct = Math.floor((currentQuestion / questions.length) * 100);
+        document.querySelector(".progress--bar").style.width = `${pct}%`;
+
+        document.querySelector(".scoreArea").style.display = "none";
+        document.querySelector(".questionArea").style.display = "block";
+
+        document.querySelector(".question").innerHTML = q.question;
+        let optionsHtml = "";
+        for (let i in q.options) {
+          optionsHtml += `<div data-op="${i}" class="option"><span>${Number(i) + 1
+            }</span> ${q.options[i]}</div>`;
+        }
+
+        document.querySelector(".options").innerHTML = optionsHtml;
+
+        document.querySelectorAll(".options .option").forEach((item) => {
+          item.addEventListener("click", optionClickEvent);
+        });
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function optionClickEvent(e) {
+      let clickedOption = Number(e.target.getAttribute("data-op"));
+
+      if (questions[currentQuestion].answer === clickedOption) {
+        correctAnswers++;
+      }
+
+      currentQuestion++;
+      showQuestion();
+    }
+
+    function finishQuiz() {
+      let points = Math.floor((correctAnswers / questions.length) * 100);
+
+      if (points <= 50) {
+        document.querySelector(".scoreText1").innerHTML = "QUIZ GURU";
+        document.querySelector(".scorePct").style.color = "rgb(165, 3, 3)";
+      } else if (points <= 70) {
+        document.querySelector(".scoreText1").innerHTML = "Muito bom!";
+        document.querySelector(".scorePct").style.color = "rgb(221, 221, 13)";
+      } else if (points > 70) {
+        document.querySelector(".scoreText1").innerHTML = "Parabéns!";
+        document.querySelector(".scorePct").style.color = "0D630D";
+      }
+
+      document.querySelector(".scorePct").innerHTML = `Acertou ${points}%`;
+      document.querySelector(
+        ".scoreText2"
+      ).innerHTML = `Você respondeu ${questions.length} questões e acertou ${correctAnswers}.`;
+
+      document.querySelector(".scoreArea").style.display = "block";
+      document.querySelector(".questionArea").style.display = "none";
+      document.querySelector(".progress--bar").style.width = "100%";
+    }
+
+    function resetEvent() {
+      correctAnswers = 0;
+      currentQuestion = 0;
+      showQuestion();
+    }
+  </script>
+</body>
+
+</html>
